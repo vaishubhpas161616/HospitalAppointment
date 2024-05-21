@@ -238,15 +238,7 @@ const Appointment = () => {
                                                     <td>{appintment.patientId}</td>
                                                     <td>{appintment.mobileNo}</td>
                                                     <td>
-                                                    <button
-                                type="button"
-                                className="btn btn-col-2 btn-danger mx-2"
-                                onClick={() => {
-                                    onDelete(appintment.appointmentId);
-                                }}
-                              >
-                                <FaTrash />
-                              </button>
+                                                    <button type="button" className="btn btn-col-2 btn-danger mx-2"onClick={() => {onDelete(appintment.appointmentId);}}><FaTrash /></button>
                                                     </td>
                                                 </tr>)
                                             })
@@ -272,58 +264,42 @@ const Appointment = () => {
                                                     <div className='col-6'>
                                                         <label>Name</label>
                                                         <input type='text' onChange={(event) => { ChangeAppointment(event, 'name') }} placeholder='Enter Name' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.name}
-                        </small>
+                                                        <small className="text-danger">{errors.name}</small>
                                                     </div>
                                                     <div className='col-6'>
                                                         <label>Mobile No</label>
                                                         <input type='text' onChange={(event) => { ChangeAppointment(event, 'mobileNo') }} placeholder='Enter MobileNo' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.mobileNo}
-                        </small>
+                                                        <small className="text-danger">{errors.mobileNo}</small>
                                                     </div>
                                                     <div className='col-6'>
                                                         <label>City</label>
                                                         <input type='text' onChange={(event) => { ChangeAppointment(event, 'city') }} placeholder='Enter City' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.city}
-                        </small>
+                                                        <small className="text-danger">{errors.city}</small>
                                                     </div>
                                                     <div className='col-6'>
                                                         <label>Age</label>
                                                         <input type='text' onChange={(event) => { ChangeAppointment(event, 'age') }} placeholder='Enter Age' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.age}
-                        </small>
+                                                        <small className="text-danger">{errors.age}</small>
                                                     </div>
                                                     <div className='col-6'>
                                                         <label>Gender</label>
                                                         <input type='text' onChange={(event) => { ChangeAppointment(event, 'gender') }} placeholder='Enter Gender' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.gender}
-                        </small>
+                                                        <small className="text-danger">{errors.gender}</small>
                                                     </div>
                                                     <div className='col-6'>
                                                         <label>AppointmentDate</label>
                                                         <input type='date' onChange={(event) => { ChangeAppointment(event, 'appointmentDate') }} placeholder='Enter Date' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.appointmentDate}
-                        </small>
+                                                        <small className="text-danger">{errors.appointmentDate}</small>
                                                     </div>
                                                     <div className='col-6'>
                                                         <label>Time</label>
                                                         <input type='time' onChange={(event) => { ChangeAppointment(event, 'appointmentTime') }} placeholder='Enter Time' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.appointmentTime}
-                        </small>
+                                                        <small className="text-danger">{errors.appointmentTime}</small>
                                                     </div>
                                                     <div className='col-6'>
                                                         <label>Naration</label>
                                                         <input type='text' onChange={(event) => { ChangeAppointment(event, 'naration') }} placeholder='Enter Naration' className='form-control'></input>
-                                                        <small className="text-danger">
-                          {errors.naration}
-                        </small> 
+                                                        <small className="text-danger">{errors.naration}</small> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -332,25 +308,12 @@ const Appointment = () => {
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
-                            <div className="col-12 text-center">
-                {
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-primary m-2"
-                    onClick={AddNewApointment}
-                  >
-                    Add
-                  </button>
-                }
-                                    <button
-                  type="button"
-                  className="btn btn-sm btn-secondary"
-                  onClick={onreset}
-                >
-                  Reset
-                </button>
-                </div>
-                                
+                              <div className="col-12 text-center">
+                                {
+                                <button type="button" className="btn btn-sm btn-primary m-2" onClick={AddNewApointment}>Add</button>
+                                }
+                                <button type="button" className="btn btn-sm btn-secondary" onClick={onreset}>Reset</button>
+                                </div>
                             </Modal.Footer>
                         </Modal>
                     </form>

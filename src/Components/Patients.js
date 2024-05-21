@@ -248,24 +248,11 @@ const Patients = () => {
                                                 <td>{patient.age}</td>
                                                 <td>{patient.gender}</td>
                                                 <td>
-                              <button
-                                type="button"
-                                className="btn btn-col-2 btn-primary mx-2"
-                                onClick={() => onEdit(patient)}
-                              >
-                                <FaEdit />
-                                {/* Adjust margin as needed */}
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-col-2 btn-danger mx-2"
-                                onClick={() => {
-                                  DeletePatients(patient.patientId);
-                                }}
-                              >
-                                <FaTrash />
-                              </button>
-                            </td>
+                                                  <button type="button" className="btn btn-col-2 btn-primary mx-2" onClick={() => onEdit(patient)}><FaEdit />
+                                                   {/* Adjust margin as needed */}</button>
+                                                   <button type="button" className="btn btn-col-2 btn-danger mx-2" onClick={() => {DeletePatients(patient.patientId);}}>
+                                                    <FaTrash /></button>
+                                                    </td>
                                             </tr>)
                                            }) 
                                         }
@@ -275,9 +262,7 @@ const Patients = () => {
                         </div>
                     </div>
                     </div>
-                    
-                    
-                        
+                              
                     <div className='col-md-12'>
                     <form action=''>
                         <Modal show={show} onHide={handleClose}>
@@ -293,73 +278,41 @@ const Patients = () => {
                                                 <div className='col-6'>
                                     <label>Name</label>
                                     <input type='text' value={patientObj.name} placeholder='Enter Name' onChange={(event) => {ChangeForm(event, 'name')}} className='form-control'></input>
-                                    <small className="text-danger">
-                          {errors.name}
-                        </small>
+                                    <small className="text-danger">{errors.name}</small>
                                 </div>
                                 <div className='col-6'>
                                     <label>Mobile No</label>
                                     <input type='text' value={patientObj.mobileNo} placeholder='Enter Mob' onChange={(event) => {ChangeForm(event, 'mobileNo')}} className='form-control'></input>
-                                    <small className="text-danger">
-                          {errors.mobileNo}
-                        </small>
+                                    <small className="text-danger">{errors.mobileNo}</small>
                                 </div>
                                 <div className='col-6'>
                                     <label>City</label>
                                     <input type='text' value={patientObj.city} placeholder='Enter City' onChange={(event) => {ChangeForm(event, 'city')}} className='form-control'></input>
-                                    <small className="text-danger">
-                          {errors.city}
-                        </small>
+                                    <small className="text-danger">{errors.city}</small>
                                 </div>
                                 <div className='col-6'>
                                     <label>Age</label>
                                     <input type='text' value={patientObj.age} placeholder='Enter Age' onChange={(event) => {ChangeForm(event, 'age')}} className='form-control'></input>
-                                    <small className="text-danger">
-                          {errors.age}
-                        </small>
+                                    <small className="text-danger">{errors.age}</small>
                                 </div>
                                 <div className='col-6'>
                                     <label>Gender</label>
                                     <input type='text' value={patientObj.gender} placeholder='Enter Gender' onChange={(event) => {ChangeForm(event, 'gender')}} className='form-control'></input>
-                                    <small className="text-danger">
-                          {errors.gender}
-                        </small>
+                                    <small className="text-danger">{errors.gender}</small>
                                 </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
-                            <div className="col-12 text-center">
-                {patientObj.patientId === 0 && (
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-primary m-2"
-                    onClick={SavePatients}
-                  >
-                    Add
-                  </button>
-                )}
-                {patientObj.patientId !== 0 && (
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-warning m-2"
-                    onClick={UpdatePatients}
-                  >
-                    Update
-                  </button>
-                )}
-                <button
-                  type="button"
-                  className="btn btn-sm btn-secondary"
-                  onClick={onreset}
-                >
-                  Reset
-                </button>
-              </div>
+                            <div className="col-12 text-center"> 
+                            {patientObj.patientId === 0 && (
+                            <button type="button" className="btn btn-sm btn-primary m-2" onClick={SavePatients}>Add</button>)}
+                            {patientObj.patientId !== 0 && (
+                            <button type="button" className="btn btn-sm btn-warning m-2" onClick={UpdatePatients}>Update </button>)}
+                            <button type="button" className="btn btn-sm btn-secondary" onClick={onreset}>Reset</button></div>
                             </Modal.Footer>
                         </Modal>
                     </form>
