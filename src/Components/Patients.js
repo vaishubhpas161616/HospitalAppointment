@@ -7,9 +7,13 @@ import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
 const Patients = () => {
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      setShow(false);
+      onreset();
+    };
     const handleShow = () => setShow(true);
     const [getPatients, setGetPatients] = useState([]);
+    const [getpatientId, setGetPatientId] = useState([]);
     const [patientObj, setPatientObj] = useState(
         {
             patientId: 0,
@@ -20,6 +24,7 @@ const Patients = () => {
             gender: ""
           }
     );
+    
 
     const [errors, setErrors] = useState({
         patientId: 0,
@@ -49,6 +54,21 @@ const Patients = () => {
             }
           );
           setGetPatients(result.data.data);
+        } catch (error) {
+          console.error("Error fetching patients:", error);
+        }
+      };
+      const getAllPatientsByPatientId = async () => {
+        try {
+          const result = await axios.get(
+            "https://freeapi.gerasim.in/api/HospitalAppointment/GetPatientByPatientId",
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+              },
+            }
+          );
+          setGetPatientId(result.data.data);
         } catch (error) {
           console.error("Error fetching patients:", error);
         }
@@ -118,7 +138,7 @@ const Patients = () => {
     
     useEffect(() => {
         getAllPatients();
-        
+        getAllPatientsByPatientId();
     }, []);
 
     const onEdit = (obj) => {
@@ -275,7 +295,7 @@ const Patients = () => {
                                         <div className='row'>
                                             <div className='col-12'>
                                                 <div className='row'>
-                                                <div className='col-6'>
+                                    <div className='col-6'>
                                     <label>Name</label>
                                     <input type='text' value={patientObj.name} placeholder='Enter Name' onChange={(event) => {ChangeForm(event, 'name')}} className='form-control'></input>
                                     <small className="text-danger">{errors.name}</small>

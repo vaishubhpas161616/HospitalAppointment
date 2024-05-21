@@ -25,9 +25,7 @@ function App() {
                     </li>
                     <li className="nav-item">
                       <NavLink className='nav-link' activeClassName='active' to="/Appointment">Appointment</NavLink>
-                    </li>
-
-                    
+                    </li> 
                   </ul>
 
                 </div>
@@ -35,7 +33,7 @@ function App() {
             </nav>
 
             <Routes>
-              <Route path="/" element={<Dashboard></Dashboard>}></Route>
+              <Route path="/Dashboard" element={<Dashboard></Dashboard>}></Route>
               <Route path="/Patients" element={<Patients></Patients>}></Route>
               <Route path="/Appointment" element={<Appointment></Appointment>}></Route>
               

@@ -3,19 +3,21 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 
 const Appointment = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [getAppintment, setGetApointment] = useState([]);
+    const [getAppointmentById, setGetApointmentById] = useState([]);
+    const [GetApointmentMark, setGetApointmentMark] = useState([]);
     const [addAppointment, setAddAppointment] = useState(
         {
             name: "",
             mobileNo: "",
             city: "",
-            age: 0,
+            age: "",
             gender: "",
             appointmentDate: "",
             appointmentTime: "",
@@ -23,18 +25,24 @@ const Appointment = () => {
             naration: ""
         }
     );
-
     const [errors, setErrors] = useState({
             name: "",
             mobileNo: "",
             city: "",
-            age: 0,
+            age: "",
             gender: "",
             appointmentDate: "",
             appointmentTime: "",
             isFirstVisit: true,
             naration: ""
       });
+
+      useEffect(() => {
+        GetAllApointment();
+        GetAllApointmentByAppointmentId();
+        GetAllMarkApointmentDone();
+        
+    }, []);
 
       const ChangeAppointment = (event, key) => {
         setAddAppointment((prevObj) => ({
@@ -56,6 +64,38 @@ const Appointment = () => {
             }
           );
           setGetApointment(result.data.data);
+        } catch (error) {
+          console.error("Error fetching appointment:", error);
+        }
+      };
+
+      const GetAllApointmentByAppointmentId = async () => {
+        try {
+          const result = await axios.get(
+            "https://freeapi.gerasim.in/api/HospitalAppointment/GetAppointmentByAppointmentId",
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+              },
+            }
+          );
+          setGetApointmentById(result.data.data);
+        } catch (error) {
+          console.error("Error fetching appointment:", error);
+        }
+      };
+
+      const GetAllMarkApointmentDone = async () => {
+        try {
+          const result = await axios.get(
+            "https://freeapi.gerasim.in/api/HospitalAppointment/MarkAppointmentDone",
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+              },
+            }
+          );
+          setGetApointmentMark(result.data.data);
         } catch (error) {
           console.error("Error fetching appointment:", error);
         }
@@ -131,10 +171,7 @@ const Appointment = () => {
         }
       };
 
-    useEffect(() => {
-        GetAllApointment();
-        
-    }, []);
+   
 
       const onreset = () => {
         setAddAppointment({
