@@ -5,11 +5,12 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
-const Appointment = () => {
+const NewAppointment = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [getAppintment, setGetApointment] = useState([]);
+    const [getTodaysAppointment, setGetTodaysAppointment] = useState([]);
     const [getAppointmentById, setGetApointmentById] = useState([]);
     const [GetApointmentMark, setGetApointmentMark] = useState([]);
     const [addAppointment, setAddAppointment] = useState(
@@ -41,6 +42,7 @@ const Appointment = () => {
         GetAllApointment();
         GetAllApointmentByAppointmentId();
         GetAllMarkApointmentDone();
+        GetTodaysApointment();
         
     }, []);
 
@@ -64,6 +66,22 @@ const Appointment = () => {
             }
           );
           setGetApointment(result.data.data);
+        } catch (error) {
+          console.error("Error fetching appointment:", error);
+        }
+      };
+
+      const GetTodaysApointment = async () => {
+        try {
+          const result = await axios.get(
+            "https://freeapi.gerasim.in/api/HospitalAppointment/GetTodaysAppointments",
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+              },
+            }
+          );
+          setGetTodaysAppointment(result.data.data);
         } catch (error) {
           console.error("Error fetching appointment:", error);
         }
@@ -222,7 +240,7 @@ const Appointment = () => {
       };
     return (
         <div>
-            <div className='container-fluid'>
+            <div className='container-fluid pt-3'>
                 <div className='row'>
                     <div className='col-12'>
                     <div className="col-md-1"></div>
@@ -347,7 +365,7 @@ const Appointment = () => {
                             <Modal.Footer>
                               <div className="col-12 text-center">
                                 {
-                                <button type="button" className="btn btn-sm btn-primary m-2" onClick={AddNewApointment}>Add</button>
+                                <button type="button" className="btn btn-sm btn-primary m-2" onClick={AddNewApointment}>Book Appointment</button>
                                 }
                                 <button type="button" className="btn btn-sm btn-secondary" onClick={onreset}>Reset</button>
                                 </div>
@@ -360,4 +378,4 @@ const Appointment = () => {
     );
 };
 
-export default Appointment;
+export default NewAppointment;

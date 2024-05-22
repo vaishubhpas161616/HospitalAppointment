@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Dashboard from './Components/Dashboard';
 import Patients from './Components/Patients';
-import Appointment from './Components/Appointment';
+import NewAppointment from './Components/NewAppointment';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
                       <NavLink className='nav-link' activeClassName='active' to="/Patients">Patients</NavLink>
                     </li>
                     <li className="nav-item">
-                      <NavLink className='nav-link' activeClassName='active' to="/Appointment">Appointment</NavLink>
+                      <NavLink className='nav-link' activeClassName='active' to="/Appointment">New Appointment</NavLink>
                     </li> 
                   </ul>
 
@@ -35,7 +35,7 @@ function App() {
             <Routes>
               <Route path="/Dashboard" element={<Dashboard></Dashboard>}></Route>
               <Route path="/Patients" element={<Patients></Patients>}></Route>
-              <Route path="/Appointment" element={<Appointment></Appointment>}></Route>
+              <Route path="/Appointment" element={<NewAppointment></NewAppointment>}></Route>
               
             </Routes>
 

@@ -220,7 +220,7 @@ const Patients = () => {
    
     return (
         <div>
-            <div className='container-fluid'>
+            <div className='container-fluid pt-3'>
                 <div className='row'>
                     <div className='col-12'>
                     <div className="col-md-1"></div>

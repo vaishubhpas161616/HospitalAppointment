@@ -25,7 +25,7 @@ const Dashboard = () => {
       })
     return (
         <div>
-            <div className='container'>
+            <div className='container-fluid pt-3'>
                 <div className='row'>
                     <div className='col-12'>
                         <div className='card'>
