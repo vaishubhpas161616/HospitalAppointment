@@ -5,57 +5,58 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
-const NewAppointment = () => {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+const List = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
     const [getAppintment, setGetApointment] = useState([]);
     const [getTodaysAppointment, setGetTodaysAppointment] = useState([]);
-    const [getAppointmentById, setGetApointmentById] = useState([]);
-    const [GetApointmentMark, setGetApointmentMark] = useState([]);
+    const [getMarkDone, setGetMarkDone] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
     const [addAppointment, setAddAppointment] = useState(
-        {
-            name: "",
-            mobileNo: "",
-            city: "",
-            age: "",
-            gender: "",
-            appointmentDate: "",
-            appointmentTime: "",
-            isFirstVisit: true,
-            naration: ""
-        }
-    );
-    const [errors, setErrors] = useState({
-            name: "",
-            mobileNo: "",
-            city: "",
-            age: "",
-            gender: "",
-            appointmentDate: "",
-            appointmentTime: "",
-            isFirstVisit: true,
-            naration: ""
-      });
+      {
+          name: "",
+          mobileNo: "",
+          city: "",
+          age: "",
+          gender: "",
+          appointmentDate: "",
+          appointmentTime: "",
+          isFirstVisit: true,
+          naration: ""
+      }
+  );
 
-      useEffect(() => {
-        GetAllApointment();
-        GetAllApointmentByAppointmentId();
-        GetAllMarkApointmentDone();
-        GetTodaysApointment();
-        
-    }, []);
+  const toggleVisibility = () => {
+    setIsVisible(prevState => !prevState);
+  };
 
-      const ChangeAppointment = (event, key) => {
-        setAddAppointment((prevObj) => ({
-          ...prevObj,
-          [key]: event.target.value,
-        }));
-        // Clear error message when user starts typing again
-        setErrors((prevErrors) => ({ ...prevErrors, [key]: "" }));
-      };
+  const [errors, setErrors] = useState({
+    name: "",
+    mobileNo: "",
+    city: "",
+    age: "",
+    gender: "",
+    appointmentDate: "",
+    appointmentTime: "",
+    isFirstVisit: true,
+    naration: ""
+});
 
-      const GetAllApointment = async () => {
+useEffect(() => {
+}, []);
+
+const ChangeAppointment = (event, key) => {
+  setAddAppointment((prevObj) => ({
+    ...prevObj,
+    [key]: event.target.value,
+  }));
+  // Clear error message when user starts typing again
+  setErrors((prevErrors) => ({ ...prevErrors, [key]: "" }));
+};
+
+ 
+    const GetAllApointment = async () => {
         try {
           const result = await axios.get(
             "https://freeapi.gerasim.in/api/HospitalAppointment/GetAllAppointments",
@@ -70,8 +71,27 @@ const NewAppointment = () => {
           console.error("Error fetching appointment:", error);
         }
       };
+      
 
-      const GetTodaysApointment = async () => {
+      const GetMarkDoneAppointment = async (appointmentId) => {
+        try {
+          const result = await axios.get(
+            "https://freeapi.gerasim.in/api/HospitalAppointment/MarkAppointmentDone?appointmentId=", appointmentId,
+           
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+              },
+            }
+          );
+          setGetMarkDone(result.data.data);
+        } catch (error) {
+          console.error("Error fetching appointment:", error);
+        }
+      };
+      
+
+    const GetTodaysApointment = async () => {
         try {
           const result = await axios.get(
             "https://freeapi.gerasim.in/api/HospitalAppointment/GetTodaysAppointments",
@@ -87,37 +107,6 @@ const NewAppointment = () => {
         }
       };
 
-      const GetAllApointmentByAppointmentId = async () => {
-        try {
-          const result = await axios.get(
-            "https://freeapi.gerasim.in/api/HospitalAppointment/GetAppointmentByAppointmentId",
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-              },
-            }
-          );
-          setGetApointmentById(result.data.data);
-        } catch (error) {
-          console.error("Error fetching appointment:", error);
-        }
-      };
-
-      const GetAllMarkApointmentDone = async () => {
-        try {
-          const result = await axios.get(
-            "https://freeapi.gerasim.in/api/HospitalAppointment/MarkAppointmentDone",
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-              },
-            }
-          );
-          setGetApointmentMark(result.data.data);
-        } catch (error) {
-          console.error("Error fetching appointment:", error);
-        }
-      };
 
       const validateForm = () => {
         let isValid = true;
@@ -238,9 +227,12 @@ const NewAppointment = () => {
           }
         }
       };
+    
+
     return (
         <div>
-            <div className='container-fluid pt-3'>
+
+<div className='container-fluid pt-3'>
                 <div className='row'>
                     <div className='col-12'>
                     <div className="col-md-1"></div>
@@ -259,6 +251,20 @@ const NewAppointment = () => {
                       <FaPlus />
                       Add
                     </Button>
+                    <Button
+                      variant="success"
+                      className="btn-md m-1 text-right"
+                      onClick={GetAllApointment}
+                    >
+                      All
+                    </Button>
+                    <Button
+                      variant="success"
+                      className="btn-md m-1 text-right"
+                      onClick={GetTodaysApointment}
+                    >
+                      Todays
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -276,6 +282,7 @@ const NewAppointment = () => {
                                             <th>Naration</th>
                                             <th>PatientId</th>
                                             <th>MobileNo</th>
+                                            <th>Mark Done</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -293,8 +300,36 @@ const NewAppointment = () => {
                                                     <td>{appintment.patientId}</td>
                                                     <td>{appintment.mobileNo}</td>
                                                     <td>
+                                                    <button type="button" className="btn btn-col-2 btn-success mx-2" onClick={toggleVisibility} >{isVisible === true ? 'MarkDone' : 'Done'}</button>
+                                                    { isVisible &&(<button type="button" className="btn btn-col-2 btn-" onClick={() => {GetMarkDoneAppointment(appintment.appointmentId);}}></button>)}
+                                                    </td>
+                                                    <td>
                                                     <button type="button" className="btn btn-col-2 btn-danger mx-2"onClick={() => {onDelete(appintment.appointmentId);}}><FaTrash /></button>
                                                     </td>
+                                                    
+                                                </tr>)
+                                            })
+                                        }
+                                        {
+                                            getTodaysAppointment.map((appintmentt, index) => {
+                                                return (<tr>
+                                                    <td>{index + 1}</td>
+                                                    <td>{appintmentt.name}</td>
+                                                    <td>{appintmentt.appointmentNo}</td>
+                                                    <td>{appintmentt.appointmentDate}</td>
+                                                    <td>{appintmentt.appointmentId}</td>
+                                                    <td>{appintmentt.appointmentTime}</td>
+                                                    <td>{appintmentt.naration}</td>
+                                                    <td>{appintmentt.patientId}</td>
+                                                    <td>{appintmentt.mobileNo}</td>
+                                                    <td>
+                                                    <button type="button" className="btn btn-col-2 btn-success mx-2"onClick={toggleVisibility} >{isVisible ? 'MarkDone' : 'Done'}</button>
+                                                    {isVisible && (<button type="button" className="btn btn-col-2 btn-" onClick={() => {GetMarkDoneAppointment(appintmentt.appointmentId);}}></button>)}
+                                                    </td>
+                                                    <td>
+                                                    <button type="button" className="btn btn-col-2 btn-danger mx-2"onClick={() => {onDelete(appintmentt.appointmentId);}}><FaTrash /></button>
+                                                    </td>
+                                                    
                                                 </tr>)
                                             })
                                         }
@@ -378,4 +413,4 @@ const NewAppointment = () => {
     );
 };
 
-export default NewAppointment;
+export default List;
