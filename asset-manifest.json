@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/HospitalAppointment/static/css/main.db62923b.css",
+    "main.js": "/HospitalAppointment/static/js/main.6a52fe43.js",
+    "static/js/453.cd155de4.chunk.js": "/HospitalAppointment/static/js/453.cd155de4.chunk.js",
+    "index.html": "/HospitalAppointment/index.html",
+    "main.db62923b.css.map": "/HospitalAppointment/static/css/main.db62923b.css.map",
+    "main.6a52fe43.js.map": "/HospitalAppointment/static/js/main.6a52fe43.js.map",
+    "453.cd155de4.chunk.js.map": "/HospitalAppointment/static/js/453.cd155de4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.db62923b.css",
+    "static/js/main.6a52fe43.js"
+  ]
+}
